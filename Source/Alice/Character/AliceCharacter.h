@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "InputActionValue.h"
 #include "AliceCharacter.generated.h"
 
 UCLASS()
@@ -25,5 +26,16 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
+	TObjectPtr<class UInputMappingContext> InputMappingContext;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
+	TObjectPtr<class UInputAction> MoveAxis2D;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
+	TObjectPtr<class UInputAction> TurnAxis2D;
+
+	void Move(const FInputActionValue& Value);
+	void Turn(const FInputActionValue& Value);
 };
