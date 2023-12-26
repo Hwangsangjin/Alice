@@ -8,6 +8,7 @@
 #include "MotionControllerComponent.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Components/TextRenderComponent.h"
+#include "InputMappingContext.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -73,6 +74,12 @@ AVRPlayer::AVRPlayer()
 
 	TeleportVFX = CreateDefaultSubobject<UNiagaraComponent>(TEXT("Teleport VFX"));
 	TeleportVFX->SetupAttachment(LeftHand);
+
+	static ConstructorHelpers::FObjectFinder<UInputMappingContext> TempInputMappingContext(TEXT("/Script/EnhancedInput.InputMappingContext'/Game/Inputs/IMC_VRPlayer.IMC_VRPlayer'"));
+	if (TempInputMappingContext.Succeeded())
+	{
+		InputMappingContext = TempInputMappingContext.Object;
+	}
 }
 
 // Called when the game starts or when spawned
@@ -84,10 +91,11 @@ void AVRPlayer::BeginPlay()
 	UHeadMountedDisplayFunctionLibrary::SetTrackingOrigin(EHMDTrackingOrigin::Stage);
 
 	// 입력 매핑 설정
-	if (APlayerController* PlayerController = GetWorld()->GetFirstPlayerController())
+	APlayerController* PlayerController = Cast<APlayerController>(GetController());
+	if (PlayerController)
 	{
 		UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer());
-		if (Subsystem && InputMappingContext)
+		if (Subsystem)
 		{
 			Subsystem->AddMappingContext(InputMappingContext, 0);
 		}
