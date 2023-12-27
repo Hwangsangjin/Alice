@@ -64,7 +64,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
 	TObjectPtr<class UInputMappingContext> InputMappingContext;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
 	TObjectPtr<class UInputAction> RightTriggerBool;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
@@ -77,7 +77,7 @@ public:
 	TObjectPtr<class UInputAction> RightThumbStick;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
-	TObjectPtr<class UInputAction> LeftTriggerBool;
+	TObjectPtr<class UInputAction> LeftTriggerBool;*/
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
 	TObjectPtr<class UInputAction> MoveAxis2D;

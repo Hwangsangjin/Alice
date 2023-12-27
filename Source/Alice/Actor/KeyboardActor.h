@@ -4,17 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Engine/EngineTypes.h"
-#include "PickupActor.generated.h"
+#include "KeyboardActor.generated.h"
 
 UCLASS()
-class ALICE_API APickupActor : public AActor
+class ALICE_API AKeyboardActor : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	APickupActor();
+	AKeyboardActor();
 
 protected:
 	// Called when the game starts or when spawned
@@ -24,21 +23,19 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void Grabbed(class USkeletalMeshComponent* HandMesh, EAttachmentRule AttachmentRule);
-	void Released(FVector DeltaPosition, FQuat DeltaRotation);
+	UFUNCTION()
+	void OnHitKey(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	void RestKeyColor();
 
 	UPROPERTY(EditAnywhere, Category = "Settings|Components")
 	TObjectPtr<class UBoxComponent> BoxComponent;
 
 	UPROPERTY(EditAnywhere, Category = "Settings|Components")
-	TObjectPtr<class UStaticMeshComponent> MeshComponent;
+	TObjectPtr<class UStaticMeshComponent> StaticMeshComponent;
 
-	UPROPERTY(EditAnywhere, Category = "Settings|Values")
-	FVector LocationOffset;
+	UPROPERTY(EditAnywhere, Category = "Settings|Resources")
+	TSubclassOf<class USoundBase> KeySound;
 
-	UPROPERTY(EditAnywhere, Category = "Settings|Values")
-	float ThrowPower;
-
-	UPROPERTY(EditAnywhere, Category = "Settings|Values")
-	float RotPower;
+	TObjectPtr<class UMaterialInstanceDynamic> KeyMaterial;
 };

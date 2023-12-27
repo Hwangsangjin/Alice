@@ -27,7 +27,14 @@ public:
 	void SetupPlayerInputComponent(class UEnhancedInputComponent* EnhancedInputComponent, TArray<class UInputAction*> InputActions);
 
 	void GrabObject();
+	void ReleaseObject();
 
 private:
 	TObjectPtr<class AVRPlayer> Player;
+	TObjectPtr<class APickupActor> CurrentObject;
+
+	FVector DeltaLocation;
+	FVector PrevLocation;
+	FQuat DeltaQuat;
+	FQuat PrevQuat;
 };
