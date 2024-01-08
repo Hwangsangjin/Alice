@@ -20,22 +20,21 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
-	TObjectPtr<class UInputMappingContext> InputMappingContext;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
-	TObjectPtr<class UInputAction> MoveAxis2D;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Components")
+	TObjectPtr<class UNiagaraComponent> Dust;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
-	TObjectPtr<class UInputAction> TurnAxis2D;
+	void SetMovementMode(EMovementMode NewMovementMode);
+	void Move(const FVector& ForwardDirection, const FVector& RightDirection, const FVector2D& InputValue);
 
-	void Move(const FInputActionValue& Value);
-	void Turn(const FInputActionValue& Value);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bLadder;
+
+	class UAliceAnimInstance* AnimInstance;
 };
