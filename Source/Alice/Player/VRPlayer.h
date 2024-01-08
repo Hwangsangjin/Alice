@@ -3,17 +3,16 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
-#include "InputActionValue.h"
+#include "GameFramework/Pawn.h"
 #include "VRPlayer.generated.h"
 
 UCLASS()
-class ALICE_API AVRPlayer : public ACharacter
+class ALICE_API AVRPlayer : public APawn
 {
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
+	// Sets default values for this pawn's properties
 	AVRPlayer();
 
 protected:
@@ -27,7 +26,25 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-public:
+	void AddLocation(FVector InDeltaLocation);
+
+	TObjectPtr<class APlayerController> PlayerController;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Values")
+	float DesiredHMDHeight;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
+	TObjectPtr<class UInputMappingContext> InputMappingContext;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
+	TArray<class UInputAction*> InputActions;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Components")
+	TObjectPtr<class USceneComponent> DefaultSceneRoot;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Components")
+	TObjectPtr<class USceneComponent> VROrigin;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Components")
 	TObjectPtr<class UCameraComponent> FollowCamera;
 
@@ -41,16 +58,10 @@ public:
 	TObjectPtr<class USkeletalMeshComponent> LeftHand;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Components")
-	TObjectPtr<class UTextRenderComponent> LeftLog;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Components")
 	TObjectPtr<class UMotionControllerComponent> RightController;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Components")
 	TObjectPtr<class USkeletalMeshComponent> RightHand;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Components")
-	TObjectPtr<class UTextRenderComponent> RightLog;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Components")
 	TObjectPtr<class UMoveComponent> MoveComponent;
@@ -59,41 +70,5 @@ public:
 	TObjectPtr<class UGrabComponent> GrabComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Components")
-	TObjectPtr<class UNiagaraComponent> TeleportVFX;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
-	TObjectPtr<class UInputMappingContext> InputMappingContext;
-
-	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
-	TObjectPtr<class UInputAction> RightTriggerBool;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
-	TObjectPtr<class UInputAction> RightTriggerFloat;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
-	TObjectPtr<class UInputAction> RightTriggerTouch;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
-	TObjectPtr<class UInputAction> RightThumbStick;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
-	TObjectPtr<class UInputAction> LeftTriggerBool;*/
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
-	TObjectPtr<class UInputAction> MoveAxis2D;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
-	TObjectPtr<class UInputAction> TurnAxis2D;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Inputs")
-	TArray<class UInputAction*> InputActions;
-
-private:
-	void RightTriggerInput_Bool(const FInputActionValue& Value);
-	void RightTriggerInput_Float(const FInputActionValue& Value);
-	void RightTriggerInput_Touch(const FInputActionValue& Value);
-	void RightThumbStickInput(const FInputActionValue& Value);
-	void Move(const FInputActionValue& Value);
-	void Turn(const FInputActionValue& Value);
-	void Teleport(float SightRange, FVector Direction, FVector Pivot);
+	TObjectPtr<class UWheelComponent> WheelComponent;
 };
