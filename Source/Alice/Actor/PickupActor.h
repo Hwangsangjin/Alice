@@ -27,18 +27,12 @@ public:
 	void Grabbed(class USkeletalMeshComponent* HandMesh, EAttachmentRule AttachmentRule);
 	void Released(FVector DeltaPosition, FQuat DeltaRotation);
 
-	UPROPERTY(EditAnywhere, Category = "Settings|Components")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Components")
 	TObjectPtr<class UBoxComponent> BoxComponent;
 
-	UPROPERTY(EditAnywhere, Category = "Settings|Components")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Settings|Components")
 	TObjectPtr<class UStaticMeshComponent> MeshComponent;
 
 	UPROPERTY(EditAnywhere, Category = "Settings|Values")
-	FVector LocationOffset;
-
-	UPROPERTY(EditAnywhere, Category = "Settings|Values")
-	float ThrowPower;
-
-	UPROPERTY(EditAnywhere, Category = "Settings|Values")
-	float RotPower;
+	TObjectPtr<class ACenterActor> CenterActor;
 };
